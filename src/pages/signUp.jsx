@@ -1,7 +1,7 @@
 
 import { useState } from "react"
 import InputField from "../components/InputField"
-import Checkbox from "../components/CheckBox"
+import Checkbox from "../components/Checkbox"
 import BtnComponent from "../components/btnComponent"
 import HaveAcc from "../components/HaveAcc"
 import { useNavigate } from "react-router-dom"
