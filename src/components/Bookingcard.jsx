@@ -5,12 +5,12 @@ export default function BookingCard({ provider }) {
     const [message, setMessage] = useState("");
     const [reviews, setReviews] = useState([]);
     const [serverRatings, setServerRatings] = useState({});
-
+const url = "https://madad-c0ci.onrender.com"
     // ✅ Fetch reviews on mount
     useEffect(() => {
         async function fetchReviews() {
             try {
-                const res = await fetch(`https://madad-c0ci.onrender.com/review`, {
+                const res = await fetch(`${url}/review`, {
                     credentials: "include",
                 });
                 const data = await res.json();
@@ -47,7 +47,7 @@ export default function BookingCard({ provider }) {
         }
 
         try {
-            const res = await fetch(`https://madad-c0ci.onrender.com/review`, {
+            const res = await fetch(`${url}/review`, {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 credentials: "include",
@@ -57,7 +57,7 @@ export default function BookingCard({ provider }) {
             const data = await res.json();
             if (res.ok) {
                 // Refresh reviews
-                const refresh = await fetch(`https://madad-c0ci.onrender.com/review`, {
+                const refresh = await fetch(`${url}/review`, {
                     credentials: "include",
                 });
                 const refreshed = await refresh.json();

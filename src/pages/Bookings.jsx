@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import BookingCard from "../components/Bookingcard";
 
 async function userBooking(setUserBooking) {
+    const url = "https://madad-c0ci.onrender.com"
     try {
-        const res = await fetch(`https://madad-c0ci.onrender.com/booking/user`, { credentials: "include" })
+        const res = await fetch(`${url}/booking/user`, { credentials: "include" })
         const data = await res.json()
         setUserBooking(data.bookings)
     } catch (error) {

@@ -9,6 +9,8 @@ import Home from './pages/Home.jsx';
 import ProviderDetails from './pages/ProviderDetails.jsx';
 import Bookings from './pages/Bookings.jsx';
 import Profile from './pages/Profile.jsx';
+import EditProfile from './pages/edit.jsx';
+import HelpSupport from './pages/HelpSupport.jsx';
 
 const router = createBrowserRouter([{
   path: "/",
@@ -17,6 +19,8 @@ const router = createBrowserRouter([{
     { index: true, element: <Home /> },
     { path: "provider/:id", element: <ProviderDetails /> },
     { path: "bookings", element: <Bookings /> },
+    { path: "Help", element: <HelpSupport /> },
+    { path: "edit", element: <EditProfile /> },
     { path: "profile", element: <Profile /> },
     { path: "signup", element: <Signup /> },
     { path: "login", element: <Login /> }

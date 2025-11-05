@@ -9,6 +9,7 @@ console.log("API URL:", API_URL);
 export const context = createContext();
 const socket = io(import.meta.env.VITE_API_URL);
 function App() {
+  const url = "https://madad-c0ci.onrender.com"
   const navigate = useNavigate()
   const [providerData, setProviderData] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
@@ -34,7 +35,7 @@ function App() {
   async function getProviderInfo(lat, lng) {
     try {
       const res = await fetch(
-        `https://madad-c0ci.onrender.com/provider/nearprovider?lat=${lat}&lng=${lng}&maxDistance=10000`
+        `${url}/provider/nearprovider?lat=${lat}&lng=${lng}&maxDistance=10000`
         , {
           credentials: "include"
         });

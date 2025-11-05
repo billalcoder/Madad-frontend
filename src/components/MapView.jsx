@@ -19,7 +19,7 @@ export default function MapView({ providers }) {
   const center = userLocation || { lat: 19.076, lng: 72.8777 };
 
   return (
-    <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-md">
+    <div className="w-full h-[300px] rounded-lg overflow-hidden shadow-md">
       <MapContainer
         center={[center.lat, center.lng]}
         zoom={13}

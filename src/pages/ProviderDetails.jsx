@@ -9,13 +9,13 @@ export default function ProviderDetails() {
     const [provider, setProvider] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const [data, setdata] = useState()
-
+const url = "https://madad-c0ci.onrender.com"
     console.log(provider);
 
     useEffect(() => {
         async function fetchProvider() {
             try {
-                const res = await fetch(`https://madad-c0ci.onrender.com/provider/get/${id}` , {credentials : "include"});
+                const res = await fetch(`${url}/provider/get/${id}` , {credentials : "include"});
                 const data = await res.json();
                 setProvider(data);
             } catch (error) {
@@ -26,7 +26,7 @@ export default function ProviderDetails() {
     }, [id]);
 
     async function createBooking() {
-        const res = await fetch(`https://madad-c0ci.onrender.com/booking`, {
+        const res = await fetch(`${url}/booking`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
