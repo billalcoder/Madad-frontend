@@ -3,6 +3,8 @@ import { useEffect, useState, createContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import BottomNav from "./components/BottomNav";
+import OneSignalInit from "./components/OneSignalInit";
+import OneSignal from 'react-onesignal';
 
 const API_URL = import.meta.env;
 console.log("API URL:", API_URL);
@@ -15,6 +17,27 @@ function App() {
   const [userLocation, setUserLocation] = useState(null);
   const [activeTab, setActiveTab] = useState("Home");
 
+  useEffect(() => {
+    OneSignalInit();
+  }, []);
+
+  useEffect(() => {
+    async function savePlayerId() {
+      const playerId = await OneSignal.User.PushSubscription.id;
+      console.log("User Player ID:", playerId);
+
+      // if (playerId) {
+      //   await fetch("https://madad-c0ci.onrender.com/save-player-id", {
+      //     method: "POST",
+      //     headers: { "content-type": "application/json" },
+      //     credentials: "include",
+      //     body: JSON.stringify({ playerId }),
+      //   });
+      // }
+    }
+
+    savePlayerId();
+  }, []);
 
   // ✅ Step 1: get user location
   useEffect(() => {

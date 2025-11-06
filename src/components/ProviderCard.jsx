@@ -5,7 +5,7 @@ export default function ProviderCard({ provider }) {
 
   return (
     <div
-      className="flex items-center bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-200 p-4 cursor-pointer"
+      className="flex my-5 items-center bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-200 p-4 cursor-pointer"
       onClick={() => navigate(`/provider/${provider._id}`)}
     >
       <img
@@ -14,7 +14,7 @@ export default function ProviderCard({ provider }) {
         className="w-14 h-14 rounded-full object-cover border-2 border-blue-100"
       />
       <div className="flex-1 ml-4">
-        <h3 className="font-semibold text-gray-800">{provider.name}</h3>
+        <h3 className="font-semibold text-gray-800">{provider.name.charAt(0).toUpperCase() + provider.name.slice(1)}</h3>
         <p className="text-gray-500 text-sm">{provider.title}</p>
         <div className="flex items-center text-yellow-500 text-sm mt-1">
           {"⭐".repeat(Math.round(provider.averageRating || 0))}
