@@ -26,14 +26,14 @@ function App() {
       const playerId = await OneSignal.User.PushSubscription.id;
       console.log("User Player ID:", playerId);
 
-      // if (playerId) {
-      //   await fetch("https://madad-c0ci.onrender.com/save-player-id", {
-      //     method: "POST",
-      //     headers: { "content-type": "application/json" },
-      //     credentials: "include",
-      //     body: JSON.stringify({ playerId }),
-      //   });
-      // }
+      if (playerId) {
+        await fetch("https://madad-c0ci.onrender.com/user/saveplayerid", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ playerId }),
+        });
+      }
     }
 
     savePlayerId();
