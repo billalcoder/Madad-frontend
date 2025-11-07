@@ -9,7 +9,7 @@ export default function ProviderDetails() {
     const [provider, setProvider] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const [data, setdata] = useState()
-const url = "http://localhost:4000"
+const url = "https://madad-c0ci.onrender.com"
     console.log(provider);
 
     useEffect(() => {

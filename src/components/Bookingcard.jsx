@@ -6,7 +6,7 @@ export default function BookingCard({ provider }) {
     const [reviews, setReviews] = useState([]);
     const [serverRatings, setServerRatings] = useState({});
     const [comment, setcomment] = useState("");
-    const url = "http://localhost:4000"
+    const url = "https://madad-c0ci.onrender.com"
     // ✅ Fetch reviews on mount
 
     function onchange(e) {

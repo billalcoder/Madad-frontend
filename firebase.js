@@ -8,7 +8,7 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const url = "http://localhost:4000"
+const url = "https://madad-c0ci.onrender.com"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBZco-j5IckcjiGgr9LRTmMsIlSGOmworw",

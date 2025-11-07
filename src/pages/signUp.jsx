@@ -13,7 +13,7 @@ export default function Signup() {
     const [error, seterror] = useState("")
     const googleBtn = useRef(null);
     const navigator = useNavigate()
-    const url = "http://localhost:4000"
+    const url = "https://madad-c0ci.onrender.com"
     function onchange(e) {
         setform({ ...form, [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value })
         console.log(e.target.type);
