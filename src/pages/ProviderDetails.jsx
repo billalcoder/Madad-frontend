@@ -9,13 +9,15 @@ export default function ProviderDetails() {
     const [provider, setProvider] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const [data, setdata] = useState()
-const url = "https://madad-c0ci.onrender.com"
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+    const url = "https://madad-c0ci.onrender.com"
     console.log(provider);
 
     useEffect(() => {
         async function fetchProvider() {
             try {
-                const res = await fetch(`${url}/provider/get/${id}` , {credentials : "include"});
+                const res = await fetch(`${url}/provider/get/${id}`, { credentials: "include" });
                 const data = await res.json();
                 setProvider(data);
             } catch (error) {
@@ -26,16 +28,25 @@ const url = "https://madad-c0ci.onrender.com"
     }, [id]);
 
     async function createBooking() {
-        const res = await fetch(`${url}/booking`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify({ providerId: provider._id, status: "Requested" })
-        })
+        try {
+            const res = await fetch(`${url}/booking`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ providerId: provider._id, status: "Requested" })
+            });
 
-        const data = await res.json()
-        setdata(data)
+            const data = await res.json();
+            setdata(data);
+
+            // ✅ Show modal for 5 seconds
+            setShowSuccessModal(true);
+            setTimeout(() => setShowSuccessModal(false), 5000);
+        } catch (error) {
+            console.error("Booking failed:", error);
+        }
     }
+
 
     const providerIcon = new L.Icon({
         iconUrl: "https://cdn-icons-png.flaticon.com/512/854/854866.png",
@@ -45,8 +56,8 @@ const url = "https://madad-c0ci.onrender.com"
     if (!provider) return <p className="text-center mt-10">Loading...</p>;
 
     return (
-         <div className="flex justify-center py-10 bg-gray-100 min-h-screen relative">
-           {showPopup ?  <div className="bg-white blur-sm rounded-2xl shadow-lg p-6 w-full max-w-md">
+        <div className="flex justify-center py-10 bg-gray-100 min-h-screen relative">
+            {showPopup ? <div className="bg-white blur-sm rounded-2xl shadow-lg p-6 w-full max-w-md">
                 {/* Profile Section */}
                 <div className="flex flex-col items-center text-center">
                     <img
@@ -122,7 +133,7 @@ const url = "https://madad-c0ci.onrender.com"
                         </Marker>
                     </MapContainer>
                 </div>
-                            <p className="text-black-200 my-5">{data?.message}</p>
+                <p className="text-black-200 my-5">{data?.message}</p>
                 {/* Book Now Button */}
                 <button
                     onClick={() => setShowPopup(true)}
@@ -130,7 +141,7 @@ const url = "https://madad-c0ci.onrender.com"
                 >
                     Book Now
                 </button>
-            </div> :  <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md">
+            </div> : <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md">
                 {/* Profile Section */}
                 <div className="flex flex-col items-center text-center">
                     <img
@@ -206,7 +217,7 @@ const url = "https://madad-c0ci.onrender.com"
                         </Marker>
                     </MapContainer>
                 </div>
-                            <p className="text-black-200 my-5">{data?.message}</p>
+                <p className="text-black-200 my-5">{data?.message}</p>
                 {/* Book Now Button */}
                 <button
                     onClick={() => setShowPopup(true)}
@@ -245,6 +256,16 @@ const url = "https://madad-c0ci.onrender.com"
                     </div>
                 </div>
             )}
+
+            {showSuccessModal && (
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-30">
+                    <div className="bg-white rounded-2xl shadow-xl p-6 w-80 text-center animate-fade-in">
+                        <h2 className="text-xl font-semibold text-green-600 mb-2">Booking Status</h2>
+                        <p className="text-gray-700">{data?.message || "Booking successful!"}</p>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
