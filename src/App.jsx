@@ -5,38 +5,26 @@ import { io } from "socket.io-client";
 import BottomNav from "./components/BottomNav";
 import OneSignalInit from "./components/OneSignalInit";
 import OneSignal from 'react-onesignal';
+import { onMessageListener, requestPermission, startper } from "../firebase";
 
 const API_URL = import.meta.env;
 console.log("API URL:", API_URL);
 export const context = createContext();
 const socket = io(import.meta.env.VITE_API_URL);
 function App() {
-  const url = "https://madad-c0ci.onrender.com"
+  const url = "http://localhost:4000"
   const navigate = useNavigate()
   const [providerData, setProviderData] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [activeTab, setActiveTab] = useState("Home");
 
   useEffect(() => {
-    OneSignalInit();
-  }, []);
+    startper(); // Ask permission and get token
 
-  useEffect(() => {
-    async function savePlayerId() {
-      const playerId = await OneSignal.User.PushSubscription.id;
-      console.log("User Player ID:", playerId);
-
-      if (playerId) {
-        await fetch("https://madad-c0ci.onrender.com/user/saveplayerid", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ playerId }),
-        });
-      }
-    }
-
-    savePlayerId();
+    onMessageListener().then((payload) => {
+      console.log("Message received in foreground:", payload);
+      alert(payload.notification.title);
+    });
   }, []);
 
   // ✅ Step 1: get user location

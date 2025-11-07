@@ -1,17 +1,25 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import CategoryTabs from "../components/CategoryTabs";
 import ProviderCard from "../components/ProviderCard";
 import MapView from "../components/MapView";
 import BottomNav from "../components/BottomNav";
 import { context } from "../App";
+import { onMessageListener, requestPermission } from "../../firebase";
 
 export default function Home() {
   const { providerData } = useContext(context);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("");
   const [activeTab, setActiveTab] = useState("Home");
+  useEffect(() => {
+    requestPermission(); // Ask permission and get token
 
+    onMessageListener().then((payload) => {
+      console.log("Message received in foreground:", payload);
+      alert(payload.notification.title);
+    });
+  }, []);
   // ✅ Filter providers
   const filteredProviders = useMemo(() => {
     if (!Array.isArray(providerData)) return [];

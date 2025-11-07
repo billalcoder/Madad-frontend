@@ -4,7 +4,7 @@ export default function EditProfile() {
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [resData, setResData] = useState(null);
-  const url = "https://madad-c0ci.onrender.com";
+  const url = "http://localhost:4000";
 
   // ✅ Fetch user on page load
   useEffect(() => {
