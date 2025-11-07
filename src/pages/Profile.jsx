@@ -9,7 +9,7 @@ export default function Profile() {
     const [message, setmessage] = useState()
 
     const navigate = useNavigate()
-    const url = "http://localhost:4000"
+    const url = "https://madad-c0ci.onrender.com"
     useEffect(() => {
         async function fetchUser() {
             try {

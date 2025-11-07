@@ -12,7 +12,7 @@ export default function ProviderDetails() {
     const [data, setdata] = useState();
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-    const url = "http://localhost:4000";
+    const url = "https://madad-c0ci.onrender.com";
     console.log(provider);
 
     useEffect(() => {

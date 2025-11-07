@@ -7,7 +7,7 @@ export default function BookingCard({ provider }) {
   const [reviews, setReviews] = useState([]);
   const [serverRatings, setServerRatings] = useState({});
   const [comment, setComment] = useState("");
-  const url = "http://localhost:4000";
+  const url = "https://madad-c0ci.onrender.com";
 
   function onChange(e) {
     setComment(e.target.value);

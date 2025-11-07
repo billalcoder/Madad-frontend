@@ -12,7 +12,7 @@ console.log("API URL:", API_URL);
 export const context = createContext();
 const socket = io(import.meta.env.VITE_API_URL);
 function App() {
-  const url = "http://localhost:4000"
+  const url = "https://madad-c0ci.onrender.com"
   const navigate = useNavigate()
   const [providerData, setProviderData] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
