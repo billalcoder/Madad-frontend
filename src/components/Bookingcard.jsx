@@ -125,11 +125,10 @@ export default function BookingCard({ provider }) {
               </div>
 
               <span
-                className={`mt-3 md:mt-0 px-3 py-1 text-xs rounded-full font-semibold ${
-                  item.status === "completed"
+                className={`mt-3 md:mt-0 px-3 py-1 text-xs rounded-full font-semibold ${item.status === "completed"
                     ? "bg-green-100 text-green-700"
                     : "bg-yellow-100 text-yellow-700"
-                }`}
+                  }`}
               >
                 {item.status.toUpperCase()}
               </span>

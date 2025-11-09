@@ -8,8 +8,10 @@ import { Phone, MapPin, Star, CheckCircle, XCircle } from "lucide-react"; // ✅
 export default function ProviderDetails() {
     const { id } = useParams();
     const [provider, setProvider] = useState(null);
+    const [category, setCategore] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const [data, setdata] = useState();
+    const [disable, setdisable] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     const url = "https://madad-c0ci.onrender.com";
@@ -27,6 +29,30 @@ export default function ProviderDetails() {
         }
         fetchProvider();
     }, [id]);
+
+    useEffect(() => {
+        async function fetchProvider() {
+            try {
+                const res = await fetch(`${url}/booking/user`, { credentials: "include" });
+                const data = await res.json();
+                setCategore(data);
+            } catch (error) {
+                console.error("Error fetching provider details:", error);
+            }
+        }
+        fetchProvider();
+    }, []);
+
+    // ✅ Step 1: Check if user already booked a provider in this category
+    const alreadyBookedSameCategory = category?.bookings?.some((b) => {
+        return (
+            b.providerId?.category === provider?.category &&
+            b.status !== "cancelled" &&
+            b.status !== "completed"
+        );
+    });
+
+    console.log(alreadyBookedSameCategory);
 
     async function createBooking() {
         try {
@@ -46,13 +72,15 @@ export default function ProviderDetails() {
             console.error("Booking failed:", error);
         }
     }
+    if (!provider) return <p className="text-center mt-10">Loading provider details...</p>;
+    if (!category || !category.bookings) return <p className="text-center mt-10">Loading bookings...</p>;
 
     const providerIcon = new L.Icon({
         iconUrl: "https://cdn-icons-png.flaticon.com/512/854/854866.png",
         iconSize: [35, 35],
     });
 
-    if (!provider) return <p className="text-center mt-10">Loading...</p>;
+    // if (!provider) return <p className="text-center mt-10">Loading...</p>;
 
     return (
         <div className="flex justify-center py-10 bg-gray-100 min-h-screen relative">
@@ -220,12 +248,23 @@ export default function ProviderDetails() {
                     </div>
 
                     {/* Book Now Button */}
-                    <button
-                        onClick={() => setShowPopup(true)}
-                        className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition"
-                    >
-                        Book Now
-                    </button>
+                    {alreadyBookedSameCategory ? (
+                        <button
+                            onClick={() => setShowPopup(true)}
+                            disabled={true}
+                            className="cursor-not-allowed mt-6 w-full bg-gray-400 text-white py-2 rounded-lg font-semibold transition"
+                        >
+                            Booking already in progress
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => setShowPopup(true)}
+                            className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition"
+                        >
+                            Book Now
+                        </button>
+                    )}
+
                 </div>
             )}
 

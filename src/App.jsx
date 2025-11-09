@@ -1,33 +1,36 @@
 import "./App.css";
 import { useEffect, useState, createContext } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import BottomNav from "./components/BottomNav";
-import OneSignalInit from "./components/OneSignalInit";
-import OneSignal from 'react-onesignal';
-import { onMessageListener, requestPermission, startper } from "../firebase";
+import OneSignal from "react-onesignal";
+import { onMessageListener, startper } from "../firebase";
 
-const API_URL = import.meta.env;
-console.log("API URL:", API_URL);
 export const context = createContext();
 const socket = io(import.meta.env.VITE_API_URL);
+
 function App() {
-  const url = "https://madad-c0ci.onrender.com"
-  const navigate = useNavigate()
+  const url = "https://madad-c0ci.onrender.com";
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [providerData, setProviderData] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [activeTab, setActiveTab] = useState("Home");
 
-  useEffect(() => {
-    startper(); // Ask permission and get token
+  // ✅ Define routes where bottom nav should be hidden
+  const hideBottomNavRoutes = ["/login", "/signup"];
+  const shouldHideBottomNav = hideBottomNavRoutes.includes(location.pathname);
 
+
+  useEffect(() => {
+    startper();
     onMessageListener().then((payload) => {
       console.log("Message received in foreground:", payload);
       alert(payload.notification.title);
     });
   }, []);
 
-  // ✅ Step 1: get user location
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -42,18 +45,16 @@ function App() {
     }
   }, []);
 
-  // ✅ Step 2: fetch providers near user
   async function getProviderInfo(lat, lng) {
     try {
       const res = await fetch(
-        `${url}/provider/nearprovider?lat=${lat}&lng=${lng}&maxDistance=10000`
-        , {
-          credentials: "include"
-        });
+        `${url}/provider/nearprovider?lat=${lat}&lng=${lng}&maxDistance=10000`,
+        { credentials: "include" }
+      );
       const data = await res.json();
       if (data.error) {
         console.log(data.error);
-        return navigate("/signup")
+        return navigate("/signup");
       }
       setProviderData(data.providers || []);
     } catch (error) {
@@ -61,7 +62,6 @@ function App() {
     }
   }
 
-  // ✅ Step 3: call API when location is ready
   useEffect(() => {
     if (userLocation) {
       getProviderInfo(userLocation.lat, userLocation.lng);
@@ -74,10 +74,7 @@ function App() {
       setProviderData((prev) =>
         prev.map((p) =>
           p._id === providerId
-            ? {
-              ...p,
-              location: { type: "Point", coordinates: [lng, lat] },
-            }
+            ? { ...p, location: { type: "Point", coordinates: [lng, lat] } }
             : p
         )
       );
@@ -89,7 +86,10 @@ function App() {
   return (
     <context.Provider value={{ providerData, userLocation }}>
       <Outlet />
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      {/* ✅ Only show BottomNav when logged in AND not on login/signup */}
+      {!shouldHideBottomNav && (
+        <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      )}
     </context.Provider>
   );
 }
