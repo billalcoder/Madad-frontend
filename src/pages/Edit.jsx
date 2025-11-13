@@ -4,7 +4,7 @@ export default function EditProfile() {
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [resData, setResData] = useState(null);
-  const url = "https://madad-c0ci.onrender.com";
+  const url = import.meta.env.VITE_API_URL;
 
   // ✅ Fetch user on page load
   useEffect(() => {

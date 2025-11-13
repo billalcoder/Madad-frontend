@@ -10,7 +10,7 @@ export const context = createContext();
 const socket = io(import.meta.env.VITE_API_URL);
 
 function App() {
-  const url = "https://madad-c0ci.onrender.com";
+  const url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const location = useLocation();
 

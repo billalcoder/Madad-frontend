@@ -22,7 +22,7 @@ export default function Signup() {
 
     const googleBtn = useRef(null);
     const navigator = useNavigate()
-    const url = "https://madad-c0ci.onrender.com"
+    const url = import.meta.env.VITE_API_URL
 
     function handleFormChange(e) {
         setform({ ...form, [e.target.name]: e.target.value });

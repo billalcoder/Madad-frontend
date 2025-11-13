@@ -2,14 +2,15 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { meta } from "@eslint/js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const url = "https://madad-c0ci.onrender.com"
-
+const url = import.meta.env.VITE_API_URL
+console.log(url);
 const firebaseConfig = {
   apiKey: "AIzaSyBZco-j5IckcjiGgr9LRTmMsIlSGOmworw",
   authDomain: "madad-4d11f.firebaseapp.com",

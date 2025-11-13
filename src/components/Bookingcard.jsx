@@ -7,7 +7,7 @@ export default function BookingCard({ provider }) {
   const [reviews, setReviews] = useState([]);
   const [serverRatings, setServerRatings] = useState({});
   const [comment, setComment] = useState("");
-  const url = "https://madad-c0ci.onrender.com";
+  const url = import.meta.env.VITE_API_URL;
 
   function onChange(e) {
     setComment(e.target.value);

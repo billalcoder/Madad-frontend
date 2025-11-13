@@ -9,7 +9,7 @@ export default function Profile() {
     const [message, setmessage] = useState()
 
     const navigate = useNavigate()
-    const url = "https://madad-c0ci.onrender.com"
+    const url = import.meta.env.VITE_API_URL
     useEffect(() => {
         async function fetchUser() {
             try {

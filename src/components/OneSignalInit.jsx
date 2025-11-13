@@ -3,7 +3,7 @@ import OneSignal from 'react-onesignal';
 
 export default async function OneSignalInit() {
 
-    const url = "https://madad-c0ci.onrender.com"
+    const url = import.meta.env.VITE_API_URL
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     await OneSignal.init({
         appId: "19446a03-690a-4ff1-a3b4-9aeb313da54e",

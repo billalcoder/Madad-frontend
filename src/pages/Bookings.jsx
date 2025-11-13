@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import BookingCard from "../components/Bookingcard";
 
 async function userBooking(setUserBooking) {
-    const url = "https://madad-c0ci.onrender.com"
+    const url = import.meta.env.VITE_API_URL
     try {
         const res = await fetch(`${url}/booking/user`, { credentials: "include" })
         const data = await res.json()

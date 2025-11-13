@@ -14,7 +14,7 @@ export default function ProviderDetails() {
     const [disable, setdisable] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-    const url = "https://madad-c0ci.onrender.com";
+    const url = import.meta.env.VITE_API_URL;
     console.log(provider);
 
     useEffect(() => {

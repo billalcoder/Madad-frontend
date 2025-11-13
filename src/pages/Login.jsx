@@ -8,7 +8,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [form, setform] = useState({ email: "", password: "" });
   const [error, seterror] = useState("");
-  const url = "https://madad-c0ci.onrender.com";
+  const url = import.meta.env.VITE_API_URL;
   const googleBtn = useRef(null); // ✅ Ref to attach Google button
 
   // ✅ Initialize Google login when component mounts
